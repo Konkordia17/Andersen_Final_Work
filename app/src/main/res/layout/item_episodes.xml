@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/nameEpisodeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name_for_all" />
+
+    <TextView
+        android:id="@+id/nameEpisode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/seasonNumberText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/season" />
+
+    <TextView
+        android:id="@+id/seasonNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/seriesNumberText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/series" />
+
+    <TextView
+        android:id="@+id/seriesNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/airDateEpisodeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ait_date" />
+
+    <TextView
+        android:id="@+id/airDateEpisode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

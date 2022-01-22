@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/episodes_nav_graph"
+    app:startDestination="@id/episodesFragment">
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="com.example.andersen_final_work.presentation.ui.episodes.EpisodesFragment"
+        android:label="Эпизоды"
+        tools:layout="@layout/fragment_episodes">
+        <action
+            android:id="@+id/action_episodesFragment_to_episodeDetailFragment"
+            app:destination="@id/episodeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodeDetailFragment"
+        android:name="com.example.andersen_final_work.presentation.ui.episode_detail.EpisodeDetailFragment"
+        android:label="Об эпизоде">
+        <argument
+            android:name="episode"
+            app:argType="com.example.andersen_final_work.domain.models.Episode" />
+        <action
+            android:id="@+id/action_episodeDetailFragment_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.example.andersen_final_work.presentation.ui.character_detail.CharacterDetailFragment"
+        android:label="О персонаже">
+        <argument
+            android:name="character"
+            app:argType="com.example.andersen_final_work.domain.models.Character" />
+        <action
+            android:id="@+id/action_characterDetailFragment_to_locationDetailsFragment"
+            app:destination="@id/locationDetailsFragment" />
+        <action
+            android:id="@+id/action_characterDetailFragment_to_episodeDetailFragment"
+            app:destination="@id/episodeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationDetailsFragment"
+        android:name="com.example.andersen_final_work.presentation.ui.location_detail.LocationDetailsFragment"
+        android:label="О локации">
+        <action
+            android:id="@+id/action_locationDetailsFragment_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+        <argument
+            android:name="idLocation"
+            app:argType="string" />
+    </fragment>
+</navigation>
