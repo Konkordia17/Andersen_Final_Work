@@ -1,3 +1,166 @@
 <resources>
     <string name="app_name">Andersen_Final_Work</string>
+    <string name="characters">characters</string>
+    <string name="locations">locations</string>
+    <string name="episodes">episodes</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">name</string>
+    <string name="species">species</string>
+    <string name="status">status</string>
+    <string name="gender">gender</string>
+    <string name="retry">Повторить попытку</string>
+    <string name="no_results">No results 😓</string>
+    <string name="filter">отфильтровать список</string>
+    <string name="select_categories">Выбрать категории</string>
+    <string name="name_character">Имя: </string>
+    <string name="speciesTV">Вид: </string>
+    <string name="statusTV">Статус: </string>
+    <string name="genderTV">Пол: </string>
+    <string name="origin">Место рождения:</string>
+    <string name="location">Локация:</string>
+    <string name="episodesTV">Эпизоды:</string>
+    <string name="name_for_all">Название:</string>
+    <string name="typeLocation">Тип:</string>
+    <string name="dimension">Измерение:</string>
+    <string name="createdLocation">Дата создания:</string>
+    <string name="residents">Жители:</string>
+    <string name="ait_date">Дата выхода в эфир:</string>
+    <string name="episode">Эпизод:</string>
+    <string name="heroes">Герои:</string>
+    <string name="create">Дата создания Эпизода:</string>
+    <string name="season">Сезон:</string>
+    <string name="series">Серия:</string>
+    <string name="type">Тип:</string>
+    <string name="search">Поиск</string>
+
+    <string-array name="Status">
+        <item></item>
+        <item>Alive</item>
+        <item>Dead</item>
+        <item>unknown</item>
+    </string-array>
+
+    <string-array name="Species">
+        <item></item>
+        <item>Human</item>
+        <item>Alien</item>
+        <item>Humanoid</item>
+        <item>Robot</item>
+        <item>Mythological</item>
+    </string-array>
+
+    <string-array name="Gender">
+        <item></item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>unknown</item>
+    </string-array>
+
+    <string-array name="Seasons">
+        <item></item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+    </string-array>
+
+    <string-array name="Series">
+        <item></item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+    </string-array>
+
+    <string-array name="Type">
+        <item></item>
+        <item>Planet</item>
+        <item>Cluster</item>
+        <item>Space station</item>
+        <item>Microverse</item>
+        <item>TV</item>
+        <item>Resort</item>
+        <item>Fantasy town</item>
+        <item>Dream</item>
+        <item>Dimension</item>
+        <item>unknown</item>
+        <item>Menagerie</item>
+        <item>Game</item>
+        <item>Customs</item>
+        <item>Daycare</item>
+        <item>Dwarf planet</item>
+        <item>Miniverse</item>
+        <item>Teenyverse</item>
+        <item>Box</item>
+        <item>Spacecraft</item>
+        <item>Artificially generated world</item>
+        <item>Machine</item>
+        <item>Arcade</item>
+        <item>Spa</item>
+        <item>Quadrant</item>
+        <item>Quasar</item>
+        <item>Mount</item>
+        <item>Liquid</item>
+        <item>Convention</item>
+        <item>Woods</item>
+        <item>Diegesis</item>
+        <item>Non-Diegesis Alternative Reality</item>
+        <item>Nightmare</item>
+        <item>Asteroid</item>
+        <item>Acid Planet</item>
+        <item>Reality</item>
+        <item>Death star</item>
+        <item>Base</item>
+        <item>Elemental Rings</item>
+        <item>Human</item>
+        <item>Hell</item>
+        <item>Police Department</item>
+        <item>Country</item>
+        <item>Consciousness</item>
+        <item>Memory</item>
+    </string-array>
+
+    <string-array name="Dimension">
+        <item></item>
+        <item>C-137</item>
+        <item>unknown</item>
+        <item>Post-Apocalyptic</item>
+        <item>Replacement</item>
+        <item>Cronenberg</item>
+        <item>Fantasy</item>
+        <item>5–126</item>
+        <item>Testicle Monster</item>
+        <item>Cromulon</item>
+        <item>C-500A</item>
+        <item>K-83</item>
+        <item>J-19</item>
+        <item>J-22</item>
+        <item>Eric Stoltz Mask</item>
+        <item>Evil Rick\'s Target</item>
+        <item>Giant Telepathic Spiders</item>
+        <item>K-22</item>
+        <item>D-99</item>
+        <item>D716</item>
+        <item>D716-B</item>
+        <item>D716-C</item>
+        <item>C-35</item>
+        <item>Pizza</item>
+        <item>Phone</item>
+        <item>Chair</item>
+        <item>Fascist</item>
+        <item>Fascist Shrimp</item>
+        <item>Fascist Teddy Bear</item>
+        <item>Tusk</item>
+        <item>Wasp</item>
+        <item>Magic</item>
+        <item>Merged</item>
+    </string-array>
 </resources>
