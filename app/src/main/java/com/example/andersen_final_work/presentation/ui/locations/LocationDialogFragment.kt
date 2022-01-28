@@ -16,7 +16,7 @@ class LocationDialogFragment : DialogFragment() {
     private var dimension = ""
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val currentFilter = arguments?.getParcelable<FilterLocation>(KEY_LOOCATION)
+        val currentFilter = arguments?.getParcelable<FilterLocation>(KEY_LOCATION)
         val typeIndex = resources.getStringArray(R.array.Type).indexOf(currentFilter?.type)
         val dimensionIndex =
             resources.getStringArray(R.array.Dimension).indexOf(currentFilter?.dimension)
@@ -45,11 +45,11 @@ class LocationDialogFragment : DialogFragment() {
     }
 
     companion object {
-        private const val KEY_LOOCATION = "Key_Location"
+        private const val KEY_LOCATION = "Key_Location"
         fun newInstance(filter: FilterLocation): LocationDialogFragment {
             val dialog = LocationDialogFragment()
             val args = Bundle().apply {
-                putParcelable(KEY_LOOCATION, filter)
+                putParcelable(KEY_LOCATION, filter)
             }
             dialog.arguments = args
             return dialog
