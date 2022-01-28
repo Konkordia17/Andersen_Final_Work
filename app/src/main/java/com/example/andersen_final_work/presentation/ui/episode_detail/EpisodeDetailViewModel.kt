@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.andersen_final_work.Contract
 import com.example.andersen_final_work.domain.models.Character
 import com.example.andersen_final_work.domain.models.Episode
 import com.example.andersen_final_work.domain.usecase.characters_usecase.GetCharacterForEpisodeDetailUseCase
@@ -11,6 +12,7 @@ import com.example.andersen_final_work.domain.usecase.characters_usecase.GetChar
 import com.example.andersen_final_work.domain.usecase.characters_usecase.SetCharactersForEpisodeDetailUseCase
 import com.example.andersen_final_work.domain.usecase.episodes_usecase.GetEpisodeUseCase
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.launch
 
 class EpisodeDetailViewModel(
     private val getEpisodeUseCase: GetEpisodeUseCase,
@@ -44,38 +46,36 @@ class EpisodeDetailViewModel(
                     singleEpisode.value = it
                     showLoader.value = false
                 }, {
-                    unknownEpisode.value = "Нет даннных об эпизоде"
+                    unknownEpisode.value = Contract.NOT_DATA_ABOUT_EPISODE
                     showLoader.value = false
                 })
         )
     }
 
     private fun getCharacters(episodeId: Int, ids: String) {
-        getCharactersUseCase.getCharacters(
-            episodeId = episodeId,
-            ids = ids,
-            scope = viewModelScope,
-            onSuccess = {
-                if (it.isEmpty()) {
-                    unknownEpisode.value = "Нет данных о персонажах"
-                } else {
-                    listHeroes.value = it
-                }
+        viewModelScope.launch {
+            val characters = getCharactersUseCase(
+                episodeId = episodeId,
+                ids = ids,
+            )
+            if (characters.isEmpty()) {
+                unknownEpisode.value = Contract.NOT_DATA_ABOUT_CHARACTERS
+            } else {
+                listHeroes.value = characters
             }
-        )
+        }
     }
 
     private fun getCharacter(episodeId: Int, id: Int) {
-        getSingleCharacterUseCase.getCharacter(
-            episodeId = episodeId,
-            id = id,
-            scope = viewModelScope,
-            onSuccess = {
-                it?.let { listHeroes.value = listOf(it) } ?: kotlin.run {
-                    unknownEpisode.value = "Нет данных о персонажах"
-                }
+        viewModelScope.launch {
+            val character = getSingleCharacterUseCase.getCharacter(
+                episodeId = episodeId,
+                id = id,
+            )
+            character?.let { listHeroes.value = listOf(it) } ?: kotlin.run {
+                unknownEpisode.value = Contract.NOT_DATA_ABOUT_CHARACTERS
             }
-        )
+        }
     }
 
     fun setCharacters(episode: Episode) {

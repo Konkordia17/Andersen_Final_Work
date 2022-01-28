@@ -32,6 +32,8 @@
     <string name="series">Серия:</string>
     <string name="type">Тип:</string>
     <string name="search">Поиск</string>
+    <string name="OK">OK</string>
+    <string name="Delete_filters">Снять все фильтры</string>
 
     <string-array name="Status">
         <item></item>

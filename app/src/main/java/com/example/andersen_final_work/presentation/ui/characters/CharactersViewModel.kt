@@ -5,6 +5,7 @@ import com.example.andersen_final_work.domain.models.Character
 import com.example.andersen_final_work.domain.usecase.characters_usecase.GetCharactersFromDBUseCase
 import com.example.andersen_final_work.domain.usecase.characters_usecase.GetCharactersUseCase
 import com.example.andersen_final_work.domain.usecase.characters_usecase.UpdateCharactersAfterSwipeUseCase
+import kotlinx.coroutines.launch
 
 class CharactersViewModel(
     private val getCharactersUseCase: GetCharactersUseCase,
@@ -58,29 +59,32 @@ class CharactersViewModel(
         isVisibleRetryButton.value = false
         if (page != null) currentPage = Pair(page, false)
         showLoader.value = true
-        getCharactersUseCase.getCharacters(
-            page = currentPage.first,
-            scope = viewModelScope,
-            onSuccess = {
-                it?.let { pages = it }
-                currentPage = Pair(currentPage.first + 1, false)
-                showLoader.value = false
-            },
-            onError = {
-                currentPage = Pair(currentPage.first, false)
-                isVisibleRetryButton.value = !currentPage.second
-                showLoader.value = false
-            }
-        )
+        viewModelScope.launch {
+            getCharactersUseCase.getCharacters(
+                page = currentPage.first,
+                onSuccess = {
+                    it?.let { pages = it }
+                    currentPage = Pair(currentPage.first + 1, false)
+                    showLoader.value = false
+                },
+                onError = {
+                    currentPage = Pair(currentPage.first, false)
+                    isVisibleRetryButton.value = !currentPage.second
+                    showLoader.value = false
+                }
+            )
+        }
     }
 
     fun updateAfterSwipe() {
         if (allCharacters.value?.size ?: 0 == charactersLiveData.value?.size ?: 0) {
-            updateCharactersAfterSwipeUseCase.updateAfterSwipe(viewModelScope, setCurrentPage =
-            {
-                currentPage = Pair(1, false)
+            viewModelScope.launch {
+                updateCharactersAfterSwipeUseCase.updateAfterSwipe(setCurrentPage =
+                {
+                    currentPage = Pair(1, false)
+                }
+                )
             }
-            )
         }
     }
 

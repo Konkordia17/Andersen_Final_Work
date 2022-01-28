@@ -13,8 +13,7 @@ interface EpisodesRepository {
     suspend fun getEpisodesList(
         id: String,
         characterId: Int,
-        onSuccess: (episode: List<Episode?>) -> Unit
-    )
+    ): List<Episode?>
 
     fun getEpisode(id: String): Single<Episode>
 

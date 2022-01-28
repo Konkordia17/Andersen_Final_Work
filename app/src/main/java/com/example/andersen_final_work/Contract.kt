@@ -7,7 +7,9 @@ object Contract {
     const val NOT_DATA = "Нет соединения с интернетом"
     const val NOT_DATA_ABOUT_LOCATION = "Нет данных о локации"
     const val NOT_DATA_ABOUT_EPISODE = "Нет данных об эпизоде"
-    const val NOT_DATA_ABOUT_CHARACTER = "Нет данных о персонажах"
+    const val NOT_DATA_ABOUT_EPISODES = "Нет данных об эпизодах"
+    const val NOT_DATA_ABOUT_CHARACTERS = "Нет данных о персонажах"
+    const val NOT_DATA_ABOUT_CHARACTER = "Нет данных о персонаже"
 
     object Column {
         const val ID = "characterId"

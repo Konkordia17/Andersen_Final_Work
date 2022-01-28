@@ -17,7 +17,7 @@ import com.example.andersen_final_work.Contract
 import com.example.andersen_final_work.R
 import com.example.andersen_final_work.app.App
 import com.example.andersen_final_work.databinding.FragmentCharactersBinding
-import com.example.andersen_final_work.domain.extensions.getCurrentPosition
+import com.example.andersen_final_work.extensions.getCurrentPosition
 import com.example.andersen_final_work.domain.models.Filter
 import javax.inject.Inject
 

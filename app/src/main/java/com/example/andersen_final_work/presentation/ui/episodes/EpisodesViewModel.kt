@@ -5,6 +5,7 @@ import com.example.andersen_final_work.domain.models.Episode
 import com.example.andersen_final_work.domain.usecase.episodes_usecase.GetEpisodesFromDBUseCase
 import com.example.andersen_final_work.domain.usecase.episodes_usecase.GetEpisodesUseCase
 import com.example.andersen_final_work.domain.usecase.episodes_usecase.UpdateEpisodesAfterSwipeUseCase
+import kotlinx.coroutines.launch
 
 class EpisodesViewModel(
     private val getEpisodesUseCase: GetEpisodesUseCase,
@@ -57,28 +58,31 @@ class EpisodesViewModel(
         isVisibleRetryButton.value = false
         if (page != null) currentPage = Pair(page, false)
         showLoader.value = true
-        getEpisodesUseCase.getEpisodes(
-            page = currentPage.first,
-            scope = viewModelScope,
-            onSuccess = {
-                it?.let { pages = it }
-                currentPage = Pair(currentPage.first + 1, false)
-                showLoader.value = false
-            },
-            onError = {
-                currentPage = Pair(currentPage.first, false)
-                isVisibleRetryButton.value = !currentPage.second
-                showLoader.value = false
-            }
-        )
+        viewModelScope.launch {
+            getEpisodesUseCase.getEpisodes(
+                page = currentPage.first,
+                onSuccess = {
+                    it?.let { pages = it }
+                    currentPage = Pair(currentPage.first + 1, false)
+                    showLoader.value = false
+                },
+                onError = {
+                    currentPage = Pair(currentPage.first, false)
+                    isVisibleRetryButton.value = !currentPage.second
+                    showLoader.value = false
+                }
+            )
+        }
     }
 
     fun updateAfterSwipe() {
         if (allEpisodes.value?.size ?: 0 == episodesLiveData.value?.size ?: 0) {
-            updateEpisodesUseCase.updateAfterSwipe(scope = viewModelScope,
-                setCurrentPage = {
-                    currentPage = Pair(1, false)
-                })
+            viewModelScope.launch {
+                updateEpisodesUseCase.updateAfterSwipe(
+                    setCurrentPage = {
+                        currentPage = Pair(1, false)
+                    })
+            }
         }
     }
 

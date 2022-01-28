@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import com.example.andersen_final_work.R
 import com.example.andersen_final_work.databinding.FragmentDialogEpisodesBinding
-import com.example.andersen_final_work.domain.extensions.onItemSelect
+import com.example.andersen_final_work.extensions.onItemSelect
 import com.example.andersen_final_work.domain.models.FilterEpisodes
 
 class EpisodeDialogFragment : DialogFragment() {
@@ -26,11 +26,11 @@ class EpisodeDialogFragment : DialogFragment() {
         val dialog = builder
             .setMessage(R.string.select_categories)
             .setView(binding.root)
-            .setPositiveButton("OK") { _, _ ->
+            .setPositiveButton(resources.getString(R.string.OK)) { _, _ ->
                 val filterData = FilterEpisodes(season, series)
                 (parentFragment as EpisodesFragment).filter(filterData)
             }
-            .setNegativeButton("Снять все фильтры") { _, _ ->
+            .setNegativeButton(resources.getString(R.string.Delete_filters)) { _, _ ->
                 (parentFragment as EpisodesFragment).filter(FilterEpisodes("", ""))
             }
             .create()

@@ -5,6 +5,7 @@ import com.example.andersen_final_work.domain.models.Locations
 import com.example.andersen_final_work.domain.usecase.locations_usecase.GetLocationsFromDBUseCase
 import com.example.andersen_final_work.domain.usecase.locations_usecase.GetLocationsUseCase
 import com.example.andersen_final_work.domain.usecase.locations_usecase.UpdateLocationsAfterSwipeUseCase
+import kotlinx.coroutines.launch
 
 class LocationsViewModel(
     private val getLocationsUseCase: GetLocationsUseCase,
@@ -54,28 +55,31 @@ class LocationsViewModel(
         isVisibleRetryButton.value = false
         showLoader.value = true
         if (page != null) currentPage = Pair(page, false)
-        getLocationsUseCase.getLocations(
-            page = currentPage.first,
-            scope = viewModelScope,
-            onSuccess = {
-                it?.let { pages = it }
-                currentPage = Pair(currentPage.first + 1, false)
-                showLoader.value = false
-            },
-            onError = {
-                currentPage = Pair(currentPage.first, false)
-                isVisibleRetryButton.value = !currentPage.second
-                showLoader.value = false
-            }
-        )
+        viewModelScope.launch {
+            getLocationsUseCase.getLocations(
+                page = currentPage.first,
+                onSuccess = {
+                    it?.let { pages = it }
+                    currentPage = Pair(currentPage.first + 1, false)
+                    showLoader.value = false
+                },
+                onError = {
+                    currentPage = Pair(currentPage.first, false)
+                    isVisibleRetryButton.value = !currentPage.second
+                    showLoader.value = false
+                }
+            )
+        }
     }
 
     fun updateAfterSwipe() {
         if (allLocations.value?.size ?: 0 == locationsLiveData.value?.size ?: 0) {
-            updateLocationsAfterSwipeUseCase.updateAfterSwipe(scope = viewModelScope,
-                setCurrentPage = {
-                    currentPage = Pair(1, false)
-                })
+            viewModelScope.launch {
+                updateLocationsAfterSwipeUseCase.updateAfterSwipe(
+                    setCurrentPage = {
+                        currentPage = Pair(1, false)
+                    })
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.andersen_final_work.domain.extensions
+package com.example.andersen_final_work.extensions
 
 import android.view.View
 import android.widget.AdapterView

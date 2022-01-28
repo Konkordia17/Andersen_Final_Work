@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import com.example.andersen_final_work.R
 import com.example.andersen_final_work.databinding.FragmentDialogLocationBinding
-import com.example.andersen_final_work.domain.extensions.onItemSelect
+import com.example.andersen_final_work.extensions.onItemSelect
 import com.example.andersen_final_work.domain.models.FilterLocation
 
 class LocationDialogFragment : DialogFragment() {
@@ -26,11 +26,11 @@ class LocationDialogFragment : DialogFragment() {
         val dialog = builder
             .setMessage(R.string.select_categories)
             .setView(binding.root)
-            .setPositiveButton("OK") { _, _ ->
+            .setPositiveButton(resources.getString(R.string.OK)) { _, _ ->
                 val filterData = FilterLocation(type, dimension)
                 (parentFragment as LocationsFragment).filter(filterData)
             }
-            .setNegativeButton("Снять все фильтры") { _, _ ->
+            .setNegativeButton(resources.getString(R.string.Delete_filters)) { _, _ ->
                 (parentFragment as LocationsFragment).filter(FilterLocation("", ""))
             }
             .create()

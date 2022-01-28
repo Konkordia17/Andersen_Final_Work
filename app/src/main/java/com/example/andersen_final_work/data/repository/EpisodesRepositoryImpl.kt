@@ -38,7 +38,7 @@ class EpisodesRepositoryImpl(private val api: Api, private val dataBase: RickAnd
     }
 
     override fun getEpisodesFromDB(): LiveData<List<Episode>> {
-        return dataBase.episodeDao().getEpisodes().map {
+        return dataBase.episodeDao().getEpisodes().map { it ->
             it.map { mapEpisodeEntityToEpisodeDomain(it) }
         }
     }
@@ -57,9 +57,8 @@ class EpisodesRepositoryImpl(private val api: Api, private val dataBase: RickAnd
     override suspend fun getEpisodesList(
         id: String,
         characterId: Int,
-        onSuccess: (episode: List<Episode?>) -> Unit
-    ) {
-        try {
+    ): List<Episode?> {
+        return try {
             val episodes = api.getEpisodes(id)
             dataBase.episodeDao().insertEpisodes(episodes)
             episodes.forEach {
@@ -70,12 +69,12 @@ class EpisodesRepositoryImpl(private val api: Api, private val dataBase: RickAnd
                     )
                 )
             }
-            onSuccess(episodes.map { mapEpisodeEntityToEpisodeDomain(it) })
+            episodes.map { mapEpisodeEntityToEpisodeDomain(it) }
         } catch (e: Exception) {
             val charactersWithEpisodes =
                 dataBase.charactersDao().getCharactersWithEpisodes(characterId)
-            onSuccess(charactersWithEpisodes.episodes.map { mapEpisodeEntityToEpisodeDomain(it) })
             Log.d("TAG", "getEpisodes: asdf")
+            return charactersWithEpisodes.episodes.map { mapEpisodeEntityToEpisodeDomain(it) }
         }
     }
 

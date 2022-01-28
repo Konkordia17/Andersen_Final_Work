@@ -12,30 +12,28 @@ interface CharactersRepository {
     suspend fun getCharactersForLocation(
         idLocation: Int,
         id: String,
-        onSuccess: (character: List<Character?>) -> Unit
-    )
+    ): List<Character?>
 
     suspend fun getCharactersForEpisodes(
         episodeId: Int,
         id: String,
-        onSuccess: (character: List<Character?>) -> Unit
-    )
+    ): List<Character?>
 
     suspend fun updateCharacters(page: Int, callback: () -> Unit)
 
     suspend fun getSingleCharacterForLocation(
         idLocation: Int,
         id: Int,
-        onSuccess: (Character?) -> Unit
-    )
+    ):Character?
 
-    suspend fun getSingleCharacter(id: Int, onSuccess: (Character?) -> Unit)
+    suspend fun getSingleCharacter(id: Int,
+//                                   onSuccess: (Character?) -> Unit
+    ):Character?
 
     suspend fun getSingleCharacterForEpisode(
         episodeId: Int,
         id: Int,
-        onSuccess: (Character?) -> Unit
-    )
+    ): Character?
 
     suspend fun getSingleCharacterFromDB(id: Int): Character
 }

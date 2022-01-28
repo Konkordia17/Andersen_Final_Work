@@ -7,11 +7,9 @@ import javax.inject.Inject
 
 class UpdateLocationsAfterSwipeUseCase
 @Inject constructor(private val repository: LocationsRepository) {
-    fun updateAfterSwipe(scope: CoroutineScope, setCurrentPage: () -> Unit) {
-        scope.launch {
-            repository.updateLocations(0) {
-                setCurrentPage.invoke()
-            }
+    suspend fun updateAfterSwipe(setCurrentPage: () -> Unit) {
+        repository.updateLocations(0) {
+            setCurrentPage.invoke()
         }
     }
 }

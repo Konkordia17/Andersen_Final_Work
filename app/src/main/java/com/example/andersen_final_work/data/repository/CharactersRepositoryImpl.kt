@@ -12,6 +12,7 @@ import com.example.andersen_final_work.domain.models.Character
 import com.example.andersen_final_work.domain.models.Location
 import com.example.andersen_final_work.domain.models.Origin
 import com.example.andersen_final_work.domain.repository.CharactersRepository
+import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
 
 class CharactersRepositoryImpl @Inject constructor(
@@ -61,9 +62,8 @@ class CharactersRepositoryImpl @Inject constructor(
     override suspend fun getCharactersForLocation(
         idLocation: Int,
         id: String,
-        onSuccess: (character: List<Character?>) -> Unit
-    ) {
-        try {
+    ): List<Character?> {
+        return try {
             val characters = api.getListCharacter(id)
             dataBase.charactersDao()
                 .insertCharacters(characters)
@@ -75,20 +75,19 @@ class CharactersRepositoryImpl @Inject constructor(
                     )
                 )
             }
-            onSuccess(characters.map { mapCharacterEntityToCharacterDomain(it) })
+            characters.map { mapCharacterEntityToCharacterDomain(it) }
         } catch (e: Exception) {
             val charactersWithDB = dataBase.locationDao().getLocationWithCharacters(idLocation)
-            onSuccess(charactersWithDB.characters.map { mapCharacterEntityToCharacterDomain(it) })
             Log.d("TAG", "getEpisodes: asdf")
+            charactersWithDB.characters.map { mapCharacterEntityToCharacterDomain(it) }
         }
     }
 
     override suspend fun getCharactersForEpisodes(
         episodeId: Int,
         id: String,
-        onSuccess: (character: List<Character?>) -> Unit
-    ) {
-        try {
+    ): List<Character?> {
+        return try {
             val characters = api.getListCharacter(id)
             dataBase.charactersDao()
                 .insertCharacters(characters)
@@ -100,11 +99,11 @@ class CharactersRepositoryImpl @Inject constructor(
                     )
                 )
             }
-            onSuccess(characters.map { mapCharacterEntityToCharacterDomain(it) })
+            characters.map { mapCharacterEntityToCharacterDomain(it) }
         } catch (e: Exception) {
             val characters = dataBase.episodeDao().getEpisodeWithCharacters(episodeId)
-            onSuccess(characters.characters.map { mapCharacterEntityToCharacterDomain(it) })
             Log.d("TAG", "getEpisodes: asdf")
+            characters.characters.map { mapCharacterEntityToCharacterDomain(it) }
         }
     }
 
@@ -123,37 +122,35 @@ class CharactersRepositoryImpl @Inject constructor(
     override suspend fun getSingleCharacterForLocation(
         idLocation: Int,
         id: Int,
-        onSuccess: (Character?) -> Unit
-    ) {
-        try {
+    ): Character? {
+        return try {
             val character = api.getCharacter(id)
             dataBase.locationDao().insertLocationCharactersCrossRef(
                 crossRef = LocationCharacterCrossRef(idLocation, id)
             )
-            onSuccess(mapCharacterEntityToCharacterDomain(character))
+            mapCharacterEntityToCharacterDomain(character)
         } catch (e: Exception) {
             val character = getSingleCharacterFromDB(id)
-            onSuccess(character)
             Log.d("TAG", "getCharacters: asdf")
+            return character
         }
     }
 
-    override suspend fun getSingleCharacter(id: Int, onSuccess: (Character?) -> Unit) {
-        try {
+    override suspend fun getSingleCharacter(id: Int): Character? {
+        return try {
             val character = api.getCharacter(id)
-            onSuccess(mapCharacterEntityToCharacterDomain(character))
+            mapCharacterEntityToCharacterDomain(character)
         } catch (e: Exception) {
             val character = getSingleCharacterFromDB(id)
-            onSuccess(character)
             Log.d("TAG", "getCharacters: asdf")
+            return character
         }
     }
 
     override suspend fun getSingleCharacterForEpisode(
         episodeId: Int,
         id: Int,
-        onSuccess: (Character?) -> Unit
-    ) {
+    ): Character? {
         try {
             val character = api.getCharacter(id)
             dataBase.episodeDao().insertEpisodeCharactersCrossRef(
@@ -162,11 +159,11 @@ class CharactersRepositoryImpl @Inject constructor(
                     characterId = id
                 )
             )
-            onSuccess(mapCharacterEntityToCharacterDomain(character))
+            return mapCharacterEntityToCharacterDomain(character)
         } catch (e: Exception) {
             val character = getSingleCharacterFromDB(id)
-            onSuccess(character)
             Log.d("TAG", "getCharacters: asdf")
+            return character
         }
     }
 

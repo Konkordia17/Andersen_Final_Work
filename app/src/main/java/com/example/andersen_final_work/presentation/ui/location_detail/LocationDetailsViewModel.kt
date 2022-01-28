@@ -13,6 +13,7 @@ import com.example.andersen_final_work.domain.usecase.characters_usecase.GetResi
 import com.example.andersen_final_work.domain.usecase.characters_usecase.SetResidentsUseCase
 import com.example.andersen_final_work.domain.usecase.locations_usecase.GetLocationUseCase
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.launch
 
 class LocationDetailsViewModel(
     private val getLocationUseCase: GetLocationUseCase,
@@ -58,29 +59,27 @@ class LocationDetailsViewModel(
     }
 
     private fun getResidents(idLocation: Int, ids: String) {
-        getResidentsUseCase.getResidents(
-            scope = viewModelScope,
-            ids = ids,
-            idLocation = idLocation,
-            onSuccess = {
-                if (it.isEmpty()) {
-                    unknownResidents.value = Contract.NOT_DATA_ABOUT_CHARACTER
-                }
-                listResidents.value = it
+        viewModelScope.launch {
+            val residents = getResidentsUseCase.getResidents(
+                ids = ids,
+                idLocation = idLocation
+            )
+            if (residents.isEmpty()) {
+                unknownResidents.value = Contract.NOT_DATA_ABOUT_CHARACTERS
             }
-        )
+            listResidents.value = residents
+        }
     }
 
     private fun getResident(idLocation: Int, id: Int) {
-        getResidentUseCase.getResident(
-            scope = viewModelScope,
-            idLocation = idLocation,
-            id = id,
-            onSuccess = {
-                it?.let { listResidents.value = listOf(it) }
-                    ?: kotlin.run { unknownResidents.value = Contract.NOT_DATA_ABOUT_CHARACTER }
-            }
-        )
+        viewModelScope.launch {
+            val resident = getResidentUseCase.getResident(
+                idLocation = idLocation,
+                id = id,
+            )
+            resident?.let { listResidents.value = listOf(it) }
+                ?: kotlin.run { unknownResidents.value = Contract.NOT_DATA_ABOUT_CHARACTERS }
+        }
     }
 
     fun setResidents(location: Locations) {
